@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 const notifier = require("./lib/notifier");
-const { pollFavoriteBusinesses$ } = require("./lib/poller");
 const { editConfig, resetConfig, configPath, config } = require("./lib/config");
 
 const argv = require("yargs")
@@ -41,6 +40,8 @@ switch (argv._[0]) {
       console.log(config);
     }
 
+    // eslint-disable-next-line
+    const { pollFavoriteBusinesses$ } = require("./lib/poller");
     pollFavoriteBusinesses$(notifier.hasListeners$()).subscribe(
       (businesses) => notifier.notifyIfChanged(businesses),
       console.error
