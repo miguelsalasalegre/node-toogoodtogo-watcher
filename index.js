@@ -34,7 +34,9 @@ switch (argv._[0]) {
   case "watch":
     if (argv.config) {
       const customConfig = JSON.parse(argv.config);
+      console.log(config);
       config.set(customConfig);
+      console.log(config);
     }
 
     pollFavoriteBusinesses$(notifier.hasListeners$()).subscribe(
