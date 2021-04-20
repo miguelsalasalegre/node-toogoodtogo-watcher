@@ -34,8 +34,10 @@ switch (argv._[0]) {
   case "watch":
     if (argv.config) {
       const customConfig = JSON.parse(argv.config);
+      console.log("CONFIG BEFORE SETTING");
       console.log(config);
       config.set(customConfig);
+      console.log("CONFIG AFTER SETTING");
       console.log(config);
     }
 
