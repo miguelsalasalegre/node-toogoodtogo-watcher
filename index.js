@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const notifier = require("./lib/notifier");
+const { pollFavoriteBusinesses$ } = require("./lib/poller");
 const { editConfig, resetConfig, configPath, config } = require("./lib/config");
 
 const argv = require("yargs")
@@ -34,14 +34,14 @@ switch (argv._[0]) {
     if (argv.config) {
       const customConfig = JSON.parse(argv.config);
       console.log("CONFIG BEFORE SETTING");
-      console.log(config);
+      console.log(config.get("notifications.telegram"));
       config.set(customConfig);
       console.log("CONFIG AFTER SETTING");
-      console.log(config);
+      console.log(config.get("notifications.telegram"));
     }
 
     // eslint-disable-next-line
-    const { pollFavoriteBusinesses$ } = require("./lib/poller");
+    const notifier = require("./lib/notifier");
     pollFavoriteBusinesses$(notifier.hasListeners$()).subscribe(
       (businesses) => notifier.notifyIfChanged(businesses),
       console.error
